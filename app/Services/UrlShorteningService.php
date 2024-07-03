@@ -1,7 +1,9 @@
+<?php
 namespace App\Services;
 
 use App\Models\Url;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class UrlShorteningService
 {
@@ -15,7 +17,7 @@ class UrlShorteningService
 
         // Generate unique short URL
         do {
-            $shortUrl = substr(md5(uniqid(rand(), true)), 0, 6);
+            $shortUrl = Str::random(6);
         } while (Url::where('short_url', $shortUrl)->exists());
 
         Url::create([
